@@ -82,7 +82,7 @@ def exit():
     # loop in every table in database
     for table in database_main.database:
         # save the file
-        save_csv(table.table_name, database_main.search(table.table_name))
+        save_csv(table.table_name, database_main.search(table.table_name).table)
     sys.exit()
 
 
