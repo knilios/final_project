@@ -27,7 +27,7 @@
     - Can either accept or deny request from other projects.
     - Can resign from being a project advisor but the advisor has to send a request to another faculty member to become an advisor instead, and the advisor and only resign after the new advisor accepts the invite.
 
--Admin 
+- Admin 
     - Can manage any table in the database.
     - Can delete any project
     - Can modify any project
