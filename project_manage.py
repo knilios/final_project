@@ -121,6 +121,10 @@ elif val[1] == 'student':
         i = input("Choose your action: ")
         if i == "exit":
             sys.exit() # change to exit function later
+        try:
+            int(i)
+        except ValueError:
+            continue
         if int(i) not in range(len(_list_function)):
             i = input("Choose your action: ")
             if i == "exit":
