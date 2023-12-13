@@ -33,3 +33,66 @@
     - Can modify any project
     - Can modify the status of every person.
     - Can modify every person in any project.
+
+
+
+Function and modules
+1. Frame for better ui
+2. notification handler
+3. project handler
+4. Chat system?
+
+
+project class
+1. name
+2. lead
+3. member
+4. status
+5. works
+    - name of the work
+    - date of submission
+    - the work itself
+    - comment from the advisor
+6. Activity logs
+7. Current invites
+
+Actions on project
+1. change name
+2. change member
+3. change status
+4. add work
+5. add comment on works
+6. Invite a member
+7. Invite an advisor
+8. Advisor leaves the project
+9. Project Chat
+10. Activity logs
+
+
+Person type
+1. Faculty
+    - can become consultant
+    - projects
+2. Student
+    - Can become lead or member
+    - project in reposibility
+3. Admin
+    - I am da admin
+
+Person handler - an inheritance of Person class
+
+Actions on databases
+1. add tables
+2. delete tables
+3. edit tables
+4. view databases with gui if possible
+
+Databases
+1. login
+2. person
+3. Project id and user id relation
+    id, project_id
+4. Project details
+5. Chat database?
+
+Chat display ui?

@@ -3,6 +3,8 @@ import database
 from random import randint
 import sys
 import csv
+import person_handler
+import frame
 
 # define a funcion called initializing
 
@@ -100,18 +102,40 @@ val = login()
 
 # based on the return value for login, activate the code that performs activities according to the role defined for that person_id
 
-# if val[1] = 'admin':
-    # see and do admin related activities
-# elif val[1] = 'student':
-    # see and do student related activities
-# elif val[1] = 'member':
-    # see and do member related activities
-# elif val[1] = 'lead':
-    # see and do lead related activities
-# elif val[1] = 'faculty':
-    # see and do faculty related activities
-# elif val[1] = 'advisor':
-    # see and do advisor related activities
+if val[1] == 'admin':
+  # see and do admin related activities
+  print("ah")
+elif val[1] == 'student':
+    student = person_handler.Student(val[0], database_main)
+    _list_function = []
+    for i in dir(student):
+        if (not i.startswith("_")) and (i != "name"):
+            _list_function.append(i)
+    student_frame = frame.Frame("student")
+    student_frame.add(f"WELCOME {student.name}, YOU'LL HATE IT HERE!!!")
+    student_frame.add("\nHere's what you can do: ")
+    for i in range(len(_list_function)):
+        student_frame.add(f"    type {i} for {_list_function[i]}")
+    while True:
+        student_frame.display()
+        i = input("Choose your action: ")
+        if i == "exit":
+            sys.exit() # change to exit function later
+        if int(i) not in range(len(_list_function)):
+            i = input("Choose your action: ")
+            if i == "exit":
+                sys.exit() # change to exit function later
+        getattr(student, _list_function[int(i)])()
+        
+  # see and do student related activities
+# elif val[1] == 'member':
+#   # see and do member related activities
+# elif val[1] == 'lead':
+#   # see and do lead related activities
+# elif val[1] == 'faculty':
+#   # see and do faculty related activities
+# elif val[1] == 'advisor':
+#     # see and do advisor related activities
 
 # once everyhthing is done, make a call to the exit function
 exit()
