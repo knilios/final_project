@@ -26,8 +26,10 @@ def initializing():
     reader = database.CSV_reader()
     persons_data = reader.read_data_from_file("persons.csv")
     login_data = reader.read_data_from_file("login.csv")
+    project_data = reader.read_data_from_file("project.csv")
     persons = database.Table('persons', persons_data)
     login_table = database.Table('login', login_data)
+    project_table = database.Table('project', project_data)
     global database_main
     database_main = database.DB()
     database_main.insert(persons)
@@ -39,6 +41,7 @@ def initializing():
     # login_table = database.Table('login', result)
     # print(login_table)
     database_main.insert(login_table)
+    database_main.insert(project_table)
 
 # here are things to do in this function:
 

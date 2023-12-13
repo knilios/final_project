@@ -58,7 +58,7 @@ project class
 
 Actions on project
 1. change name
-2. change member
+2. change member, add, delete
 3. change status
 4. add work
 5. add comment on works
@@ -69,7 +69,7 @@ Actions on project
 10. Activity logs
 
 
-Person type
+Person type *Deprecated
 1. Faculty
     - can become consultant
     - projects
@@ -96,3 +96,17 @@ Databases
 5. Chat database?
 
 Chat display ui?
+
+
+
+
+what I did for 12/13/2023
+    1. Added base classes for the project to based on
+        - person handler classes
+        - frame class
+        - project handler classes
+    2. Added one more csv file called project.csv to save all the project records
+
+    what still left to do:
+        1. finish the project handler class
+        2. modify table class to be able to delete stuffs and easier to use in this context

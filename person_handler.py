@@ -39,15 +39,60 @@ class Student(Person):
         input("Press enter to continue...")
         
 
-class Lead:
+class Lead(Person):
     def __init___(self, person_id, db):
         super().__init__(person_Id, db)
         
-    def see_project_stat(self):
+    def see_project_status(self):
         print("stat")
         
-    def send_member_invitation(self):
+    def send_a_member_invitation(self):
         print("inviting")
         
-    def send_member_invitation(self):
+    def send_an_advisor_invitation(self):
         print("inviting")
+        
+    def see_all_respondant(self)
+        print("respondant")
+        
+        
+class Member(Person):
+    def __init___(self, person_id, db):
+        super().__init__(person_Id, db)
+    
+    def see_project_status(self):
+        print("status")
+        
+    def modify_project_status(self):
+        print("modify")
+        
+    def see_invitation_respondant(self):
+        print("respondant")
+        
+
+class Faculty(Person):
+    def __init___(self, person_id, db):
+        super().__init__(person_Id, db)
+        
+    def see_invitation(self):
+        print("invitation")
+        
+    def manage_invitation(self):
+        print("invitation")
+        
+
+class Advisor(Person):
+    def __init___(self, person_id, db):
+        super().__init__(person_Id, db)
+        
+    def view_project_status(self):
+        print("status")
+        
+    def comment_on_projects_work(self):
+        print("work")
+        
+    def manage_invitation(self):
+        print("view and manage")
+        
+    def resign_from_project(self):
+        print("resign and find new advisor")
