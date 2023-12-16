@@ -40,7 +40,10 @@ Function and modules
 1. Frame for better ui
 2. notification handler
 3. project handler
-4. Chat system?
+4. Chat system? DEPRECATED
+5. Notification handler 
+    5.1 invite handler
+6. database handler
 
 
 project class
@@ -90,10 +93,9 @@ Actions on databases
 Databases
 1. login
 2. person
-3. Project id and user id relation
-    id, project_id
-4. Project details
-5. Chat database?
+3. Project information
+4. Invites
+5. 
 
 Chat display ui?
 
@@ -110,3 +112,18 @@ what I did for 12/13/2023
     what still left to do:
         1. finish the project handler class
         2. modify table class to be able to delete stuffs and easier to use in this context
+
+What I've done:
+    1. notification_handler
+    2. invites.csv
+    3. Finish project handler
+    4. Database handler
+    5. Modify Table class in database to become easier to work with. I added the replace method.
+What left to do
+    1. Project_handler
+    2. Database saving related stuffs
+    3. Admin related codes
+
+Todo guide
+    1. Find the way to modify login.csv and persons.csv so that when a person change type, it will be recorded to the files
+    2. And then make sure that val are changed so that the user will be redirected to the site they should be viewing after they change their state.

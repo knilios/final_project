@@ -1,15 +1,18 @@
 # try wrapping the code below that reads a persons.csv file in a class and make it more general such that it can read in any csv file
 
 import csv, os, copy
+from multiprocessing import Value
+
+from matplotlib.rcsetup import ValidateInStrings
 
 class CSV_reader():
     def __init__(self):
         self.__location__ = os.path.realpath(
             os.path.join(os.getcwd(), os.path.dirname(__file__)))
         
-    def read_data_from_file(self, file_name):
+    def read_data_from_file(self, file_name:str):
         """
-        :param: file_name : file's name
+        :param: file_name : file name
         :return: a list of a datas in the csv file specified.
         """
         data = []
@@ -88,13 +91,20 @@ class Table:
             temps.append(dict_temp)
         return temps
     
-    def add(self, _list):
+    def add(self, _list:list):
         if not isinstance(_list, (list)):
             raise TypeError("_list param must be a list.")
         for i in _list:
             if not isinstance(i, (dict)):
                 raise TypeError("One of item is _list is not a dict.")
         self.table += _list
+
+    def change_one_roll(self, old, new):
+        try:
+            self.table.pop(self.table.index(old))
+            self.table.append(new)
+        except ValueError:
+            raise ValueError("'old' is not in the table")
 
     def __str__(self):
         return self.table_name + ':' + str(self.table)

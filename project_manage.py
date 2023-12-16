@@ -104,21 +104,25 @@ initializing()
 val = login()
 
 # based on the return value for login, activate the code that performs activities according to the role defined for that person_id
+if val == None:
+    print("invalid username or wrong password.")
+    sys.exit()
 
 if val[1] == 'admin':
   # see and do admin related activities
   print("ah")
+
 elif val[1] == 'student':
-    student = person_handler.Student(val[0], database_main)
+    student = person_handler.Student(val[0])
     _list_function = []
     for i in dir(student):
         if (not i.startswith("_")) and (i != "name"):
             _list_function.append(i)
     student_frame = frame.Frame("student")
-    student_frame.add(f"WELCOME {student.name}, YOU'LL HATE IT HERE!!!")
+    student_frame.add(f"WELCOME {student.name}! Let's do some work, shall we?")
     student_frame.add("\nHere's what you can do: ")
     for i in range(len(_list_function)):
-        student_frame.add(f"    type {i} for {_list_function[i]}")
+        student_frame.add(f"    type {i+1} for {_list_function[i]}")
     while True:
         student_frame.display()
         i = input("Choose your action: ")
@@ -128,13 +132,12 @@ elif val[1] == 'student':
             int(i)
         except ValueError:
             continue
-        if int(i) not in range(len(_list_function)):
+        if (int(i) -1) not in range(len(_list_function)):
             i = input("Choose your action: ")
             if i == "exit":
                 sys.exit() # change to exit function later
-        getattr(student, _list_function[int(i)])()
+        getattr(student, _list_function[int(i)-1])()
         
-  # see and do student related activities
 # elif val[1] == 'member':
 #   # see and do member related activities
 # elif val[1] == 'lead':
