@@ -124,7 +124,7 @@ class Project:
         
         
     def change_role(self, person_id:str, new_role:str):
-        logins = database_handler.DB("logins")
+        logins = database_handler.DB("login")
         persons = database_handler.DB("persons")
         l_table = logins.get_table()
         p_table = persons.get_table()
