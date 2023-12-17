@@ -121,7 +121,7 @@ while True:
         student = person_handler.Student(val[0])
         _list_function = []
         for i in dir(student):
-            if (not i.startswith("_")) and (i != "name"):
+            if (not i.startswith("_")) and (i != "name") and (i != "get_id"):
                 _list_function.append(i)
         student_frame = frame.Frame("student")
         student_frame.add(f"WELCOME {student.name}! Let's do some work, shall we?")
@@ -142,14 +142,110 @@ while True:
                 sys.exit() # change to exit function later
         getattr(student, _list_function[int(i)-1])()
 
-    # elif val[1] == 'member':
-    #   # see and do member related activities
-    # elif val[1] == 'lead':
-    #   # see and do lead related activities
-    # elif val[1] == 'faculty':
-    #   # see and do faculty related activities
-    # elif val[1] == 'advisor':
-    #     # see and do advisor related activities
+    elif val[1] == 'member':
+      # see and do member related activities
+        member = person_handler.Member(val[0])
+        _list_function = []
+        for i in dir(member):
+            if (not i.startswith("_")) and (i != "name") and (i != "get_id"):
+                _list_function.append(i)
+        member_frame = frame.Frame("member")
+        member_frame.add(f"WELCOME {member.name}! Let's do some work, shall we?")
+        member_frame.add("\nHere's what you can do: ")
+        for i in range(len(_list_function)):
+            member_frame.add(f"    type {i+1} for {_list_function[i]}")
+        member_frame.display()
+        i = input("Choose your action: ")
+        if i == "exit":
+            sys.exit() # change to exit function later
+        try:
+            int(i)
+        except ValueError:
+            continue
+        if (int(i) -1) not in range(len(_list_function)):
+            i = input("Choose your action: ")
+            if i == "exit":
+                sys.exit() # change to exit function later
+        getattr(member, _list_function[int(i)-1])()
+    
+    elif val[1] == 'lead':
+      # see and do lead related activities
+        lead = person_handler.Lead(val[0])
+        _list_function = []
+        for i in dir(lead):
+            if (not i.startswith("_")) and (i != "name") and (i != "get_id"):
+                _list_function.append(i)
+        lead_frame = frame.Frame("lead")
+        lead_frame.add(f"WELCOME {lead.name}! Let's do some work, shall we?")
+        lead_frame.add("\nHere's what you can do: ")
+        for i in range(len(_list_function)):
+            lead_frame.add(f"    type {i+1} for {_list_function[i]}")
+        lead_frame.display()
+        i = input("Choose your action: ")
+        if i == "exit":
+            sys.exit() # change to exit function later
+        try:
+            int(i)
+        except ValueError:
+            continue
+        if (int(i) -1) not in range(len(_list_function)):
+            i = input("Choose your action: ")
+            if i == "exit":
+                sys.exit() # change to exit function later
+        getattr(lead, _list_function[int(i)-1])()
 
+    elif val[1] == 'faculty':
+      # see and do faculty related activities
+        faculty = person_handler.Faculty(val[0])
+        _list_function = []
+        for i in dir(faculty):
+            if (not i.startswith("_")) and (i != "name") and (i != "get_id"):
+                _list_function.append(i)
+        faculty_frame = frame.Frame("faculty")
+        faculty_frame.add(f"WELCOME {faculty.name}! Let's do some work, shall we?")
+        faculty_frame.add("\nHere's what you can do: ")
+        for i in range(len(_list_function)):
+            faculty_frame.add(f"    type {i+1} for {_list_function[i]}")
+        faculty_frame.display()
+        i = input("Choose your action: ")
+        if i == "exit":
+            sys.exit() # change to exit function later
+        try:
+            int(i)
+        except ValueError:
+            continue
+        if (int(i) -1) not in range(len(_list_function)):
+            i = input("Choose your action: ")
+            if i == "exit":
+                sys.exit() # change to exit function later
+        getattr(faculty, _list_function[int(i)-1])()
+
+    elif val[1] == 'advisor':
+        # see and do advisor related activities
+        advisor = person_handler.Advisor(val[0])
+        _list_function = []
+        for i in dir(advisor):
+            if (not i.startswith("_")) and (i != "name") and (i != "get_id"):
+                _list_function.append(i)
+        advisor_frame = frame.Frame("advisor")
+        advisor_frame.add(f"WELCOME {advisor.name}! Let's do some work, shall we?")
+        advisor_frame.add("\nHere's what you can do: ")
+        for i in range(len(_list_function)):
+            advisor_frame.add(f"    type {i+1} for {_list_function[i]}")
+        advisor_frame.display()
+        i = input("Choose your action: ")
+        if i == "exit":
+            sys.exit() # change to exit function later
+        try:
+            int(i)
+        except ValueError:
+            continue
+        if (int(i) -1) not in range(len(_list_function)):
+            i = input("Choose your action: ")
+            if i == "exit":
+                sys.exit() # change to exit function later
+        getattr(advisor, _list_function[int(i)-1])()
+
+    val = login_clone()
     # once everyhthing is done, make a call to the exit function
-    exit()
+#    exit()

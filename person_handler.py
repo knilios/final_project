@@ -21,20 +21,20 @@ class Person:
         self.__firstname = selected[0]['first']
         self.__lastname = selected[0]['last']
         self.__type = selected[0]['type']
-        self.__id = person_id
+        self._id = person_id
         self.name = self.__firstname + " " + self.__lastname
         
 
     def get_id(self):
-        return self.__id
+        return self._id
        
         
 class Student(Person):
     def __init___(self, person_id):
-        super().__init__(person_id)
+        super(Student, self).__init__(person_id)
         
     def manage_incoming_invitation(self):
-        _invite_list = invite.get_invite_member(self.__id)
+        _invite_list = invite.get_invite_member(self._id)
         if _invite_list == []:
             main_frame.add("You have no invite yet.")
             main_frame.display()
@@ -63,7 +63,7 @@ class Student(Person):
             if manage_choice == 0:
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_member(_invite_list[int(num)-1]["invite_id"])
-                _project.change_role(self.__id, "member")
+                _project.change_role(self._id, "member")
                 break
             elif manage_choice == 1:
                 invite.reject_invite_member(_invite_list[int(num)-1]["invite_id"])
@@ -73,14 +73,14 @@ class Student(Person):
             
     def create_a_project(self):
         name = input("Please enter the project name: ")
-        _project = project_handler.Project(name, self.__id)
-        _project.change_role(self.__id, "lead")
+        _project = project_handler.Project(name, self._id)
+        _project.change_role(self._id, "lead")
 
 
 class Lead(Person):
     def __init___(self, person_id):
         super().__init__(person_id)
-        self.__id = person_id
+        self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
         
     def see_project_status(self):
@@ -178,7 +178,7 @@ class Lead(Person):
 class Member(Person):
     def __init___(self, person_id):
         super().__init__(person_id)
-        self.__id = person_id
+        self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
     
     def see_project_status(self):
@@ -252,7 +252,7 @@ class Faculty(Person):
         super().__init__(person_id)
         
     def manage_invitation(self):
-        _invite_list = invite.get_invite_advisor(self.__id)
+        _invite_list = invite.get_invite_advisor(self._id)
         if _invite_list == []:
             main_frame.add("You have no invite yet.")
             main_frame.display()
@@ -281,7 +281,7 @@ class Faculty(Person):
             if manage_choice == 0:
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                _project.change_role(self.__id, "member")
+                _project.change_role(self._id, "member")
                 break
             elif manage_choice == 1:
                 invite.reject_invite_advisor(_invite_list[int(num)-1]["invite_id"])
@@ -293,7 +293,7 @@ class Faculty(Person):
 class Advisor(Person):
     def __init___(self, person_id):
         super().__init__(person_id)
-        self.__id = person_id
+        self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
         
     def view_and_edit_project_information(self):
@@ -320,7 +320,7 @@ class Advisor(Person):
         return
         
     def manage_invitation(self):
-        _invite_list = invite.get_invite_advisor(self.__id)
+        _invite_list = invite.get_invite_advisor(self._id)
         if _invite_list == []:
             main_frame.add("You have no invite yet.")
             main_frame.display()
@@ -349,7 +349,7 @@ class Advisor(Person):
             if manage_choice == 0:
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                _project.change_role(self.__id, "member")
+                _project.change_role(self._id, "member")
                 break
             elif manage_choice == 1:
                 invite.reject_invite_advisor(_invite_list[int(num)-1]["invite_id"])
