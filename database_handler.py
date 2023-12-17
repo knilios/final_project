@@ -18,7 +18,13 @@ class DB:
         self.__file_name = file_name
         reader = database.CSV_reader()
         # might be an error of cannot find a file with that name
-        self.__content = reader.read_data_from_file(f"{file_name}.csv")
+        try:
+            self.__content = reader.read_data_from_file(f"{file_name}.csv")
+        except FileNotFoundError:
+            myFile = open(f'{file_name}.csv', 'w')
+            writer = csv.writer(myFile)
+            myFile.close()
+            self.__content = reader.read_data_from_file(f"{file_name}.csv")
         pass
 
     def __save_csv(self):
@@ -42,12 +48,12 @@ class Get_person_id:
     def __init__(self) -> None:
         self.__data = DB("persons").get_table()
 
-    def get_by_name(self, _input, option = None) -> list:
+    def get_by_name(self, _input, option = None, option2 = 'wasdwasdwasdwasd') -> list:
         try:
             if option == None:
                 data = self.__data.filter(lambda x: _input in x["first"]+" "+x["last"]).select(["first", "last", "ID"])
             else:
-                data = self.__data.filter(lambda x: x["type"] == option).filter(lambda x: _input in x["first"]+" "+x["last"]).select(["first", "last", "ID"])
+                data = self.__data.filter(lambda x: x["type"] == option or option2 in x['type']).filter(lambda x: _input in x["first"]+" "+x["last"]).select(["first", "last", "ID"])
             _list = []
             for i in data:
                 _list.append([i["first"] +" "+ i["last"], i["ID"]])
@@ -55,7 +61,7 @@ class Get_person_id:
         except KeyError:
             return []
     
-    def ui(self, option = None) -> str:
+    def ui(self, option = None, option2='wasdwasdwasdwasd') -> str:
         while True:
             frame.add("Enter the name of the person you are finding. Type 'exit' to exit the session.")
             frame.display()
@@ -63,7 +69,7 @@ class Get_person_id:
             if name == 'exit':
                 break
             frame.clear()
-            _list = self.get_by_name(name)
+            _list = self.get_by_name(name, option, option2)
             if _list == []:
                 frame.add("Sorry, we cannot find the name that matched that input.")
                 frame.display()

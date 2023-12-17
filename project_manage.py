@@ -57,8 +57,20 @@ def initializing():
 # define a funcion called login
 
 def login():
+    global username
+    global password
     username = input('Enter username: ')
     password = input('Enter password: ')
+    login_table = database_main.search('login')
+    persons = login_table.select(['ID', 'username', 'password', 'role'])
+    for i in persons:
+        if i['username'] == username:
+            if i['password'] == password:
+                print(i)
+                return i['ID'], i['role']
+    return None
+
+def login_clone():
     login_table = database_main.search('login')
     persons = login_table.select(['ID', 'username', 'password', 'role'])
     for i in persons:
@@ -90,40 +102,32 @@ def exit():
         save_csv(table.table_name, database_main.search(table.table_name).table)
     sys.exit()
 
-
-# here are things to do in this function:
-   # write out all the tables that have been modified to the corresponding csv files
-   # By now, you know how to read in a csv file and transform it into a list of dictionaries. For this project, you also need to know how to do the reverse, i.e., writing out to a csv file given a list of dictionaries. See the link below for a tutorial on how to do this:
-   
-   # https://www.pythonforbeginners.com/basics/list-of-dictionaries-to-csv-in-python
-
-
 # make calls to the initializing and login functions defined above
 
 initializing()
 val = login()
 
 # based on the return value for login, activate the code that performs activities according to the role defined for that person_id
-if val == None:
-    print("invalid username or wrong password.")
-    sys.exit()
+while True:
+    if val == None:
+        print("invalid username or wrong password.")
+        sys.exit()
 
-if val[1] == 'admin':
-  # see and do admin related activities
-  print("ah")
+    if val[1] == 'admin':
+      # see and do admin related activities
+      print("ah")
 
-elif val[1] == 'student':
-    student = person_handler.Student(val[0])
-    _list_function = []
-    for i in dir(student):
-        if (not i.startswith("_")) and (i != "name"):
-            _list_function.append(i)
-    student_frame = frame.Frame("student")
-    student_frame.add(f"WELCOME {student.name}! Let's do some work, shall we?")
-    student_frame.add("\nHere's what you can do: ")
-    for i in range(len(_list_function)):
-        student_frame.add(f"    type {i+1} for {_list_function[i]}")
-    while True:
+    elif val[1] == 'student':
+        student = person_handler.Student(val[0])
+        _list_function = []
+        for i in dir(student):
+            if (not i.startswith("_")) and (i != "name"):
+                _list_function.append(i)
+        student_frame = frame.Frame("student")
+        student_frame.add(f"WELCOME {student.name}! Let's do some work, shall we?")
+        student_frame.add("\nHere's what you can do: ")
+        for i in range(len(_list_function)):
+            student_frame.add(f"    type {i+1} for {_list_function[i]}")
         student_frame.display()
         i = input("Choose your action: ")
         if i == "exit":
@@ -137,15 +141,15 @@ elif val[1] == 'student':
             if i == "exit":
                 sys.exit() # change to exit function later
         getattr(student, _list_function[int(i)-1])()
-        
-# elif val[1] == 'member':
-#   # see and do member related activities
-# elif val[1] == 'lead':
-#   # see and do lead related activities
-# elif val[1] == 'faculty':
-#   # see and do faculty related activities
-# elif val[1] == 'advisor':
-#     # see and do advisor related activities
 
-# once everyhthing is done, make a call to the exit function
-exit()
+    # elif val[1] == 'member':
+    #   # see and do member related activities
+    # elif val[1] == 'lead':
+    #   # see and do lead related activities
+    # elif val[1] == 'faculty':
+    #   # see and do faculty related activities
+    # elif val[1] == 'advisor':
+    #     # see and do advisor related activities
+
+    # once everyhthing is done, make a call to the exit function
+    exit()
