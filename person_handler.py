@@ -1,3 +1,4 @@
+import sys
 import database
 import frame
 import database_handler
@@ -17,7 +18,6 @@ class Person:
         if person_id not in list(map(lambda x: x['ID'], persons.select(['ID']))):
             raise ValueError("Cannot find a person with that id.")
         selected = persons.filter(lambda x: x["ID"] == person_id).select(['first', 'last', 'type'])
-        print(selected)
         self.__firstname = selected[0]['first']
         self.__lastname = selected[0]['last']
         self.__type = selected[0]['type']
@@ -30,7 +30,7 @@ class Person:
        
         
 class Student(Person):
-    def __init___(self, person_id):
+    def __init__(self, person_id):
         super(Student, self).__init__(person_id)
         
     def manage_incoming_invitation(self):
@@ -43,6 +43,20 @@ class Student(Person):
             return
         else:
             main_frame.add("These are your invitations: /n")
+            new_list=[]
+            # filter out unpending invitations
+            for i in _invite_list:
+                print(i)
+                if i["respond"] != "pending":
+                    continue
+                new_list.append(i)
+            _invite_list = new_list
+            if _invite_list == []:
+                main_frame.add("You have no invite yet.")
+                main_frame.display()
+                main_frame.clear()
+                input("Press enter to exit...")
+                return
             for i in range(len(_invite_list)):
                 _p = project_handler.Project_handler(_invite_list[i]["project_id"])
                 main_frame.add(f"Type {i+1} to manage project {_p.name}.")
@@ -60,14 +74,14 @@ class Student(Person):
             if int(num)-1 not in range(len(_invite_list)):
                 continue
             manage_choice = input("Enter 0 to join, enter 1 to reject the offer. Enter anything else to exit: ")
-            if manage_choice == 0:
+            if int(manage_choice) == 0:
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_member(_invite_list[int(num)-1]["invite_id"])
                 _project.change_role(self._id, "member")
-                break
-            elif manage_choice == 1:
+                return
+            elif int(manage_choice) == 1:
                 invite.reject_invite_member(_invite_list[int(num)-1]["invite_id"])
-                break
+                return
             else:
                 continue
             
@@ -78,7 +92,7 @@ class Student(Person):
 
 
 class Lead(Person):
-    def __init___(self, person_id):
+    def __init__(self, person_id):
         super().__init__(person_id)
         self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
@@ -90,7 +104,7 @@ class Lead(Person):
         main_frame.add("Project's status: \n")
         main_frame.add("Pending members: ")
         pending = invite.get_invite_project(self.__project.id)
-        if len(pending[0]) == 0 or pending[1] == {}:
+        if len(pending[0]) == 0 or pending[0] == {}:
             main_frame.add("BLANK")
         else:
             for i in pending[0]:
@@ -99,8 +113,8 @@ class Lead(Person):
         if len(pending[1]) == 0 or pending[1] == {}:
             main_frame.add("BLANK")
         else:
-            for i in pending[1]:
-                main_frame.add(f"{Person(i['receiver_id']).name} : {i['respond']}")
+            for j in pending[1]:
+                main_frame.add(f"{Person(j['receiver_id']).name} : {j['respond']}")
         main_frame.add("\nAdvisor solicitability:")
         if self.__project.member[0] != 'none':
             main_frame.add("YES")
@@ -139,11 +153,20 @@ class Lead(Person):
             main_frame.display()
             main_frame.clear()
             input("Press enter to proceed...")
+            return
         main_frame.add("Please select the person to send invite to.")
         main_frame.display()
         main_frame.clear()
         input("Press enter to proceed...")
         member_id = database_handler.Get_person_id().ui("student")
+        if member_id == "":
+            return
+        if member_id in list(map(lambda x: x['receiver_id'], invite.get_invite_project(self.__project.id)[0])):
+            main_frame.add("That memeber has already been invited.")
+            main_frame.display()
+            main_frame.clear()
+            input("Press enter to proceed...")
+            return
         invite.send_invite_member(self.__project.id, member_id)
         main_frame.add("Invited")
         main_frame.display()
@@ -157,26 +180,33 @@ class Lead(Person):
         if self.__project.member[1] == "none":
             print("Cannot invite an advisor yet")
             input("Press enter to exit.")
+            return
         main_frame.add("Please select a faculty member to send invite to.")
         main_frame.display()
         main_frame.clear()
         input("Press enter to proceed...")
         member_id = database_handler.Get_person_id().ui("faculty", 'advisor')
-        invite.send_invite_member(self.__project.id, member_id)
+        invite.send_invite_advisor(self.__project.id, member_id)
         main_frame.add("Invited")
         main_frame.display()
         main_frame.clear()
         input("Press enter to proceed...")
 
     def submit_work(self):
+        if self.__project.advisor == "none":
+            main_frame.add("Sorry, you cannot submit the work because you have no advisor.")
+            main_frame.display()
+            main_frame.clear()
+            input("Press enter to proceed...")
+            return
         _type = input("Please Enter a type of work: ")
-        message = input("Please enter your link to your work file")
+        message = input("Please enter your link to your work file: ")
         invite.send_work(self.__project.id, self.__project.advisor, _type, message)
         input("You work has been submitted, press enter to proceed.")
         
         
 class Member(Person):
-    def __init___(self, person_id):
+    def __init__(self, person_id):
         super().__init__(person_id)
         self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
@@ -248,7 +278,7 @@ class Member(Person):
         
 
 class Faculty(Person):
-    def __init___(self, person_id):
+    def __init__(self, person_id):
         super().__init__(person_id)
         
     def manage_invitation(self):
@@ -261,6 +291,19 @@ class Faculty(Person):
             return
         else:
             main_frame.add("These are your invitations: /n")
+            new_list=[]
+            # filter out unpending invitations
+            for i in _invite_list:
+                if i["respond"] != "pending":
+                    continue
+                new_list.append(i)
+            _invite_list = new_list
+            if _invite_list == []:
+                main_frame.add("You have no invite yet.")
+                main_frame.display()
+                main_frame.clear()
+                input("Press enter to exit...")
+                return
             for i in range(len(_invite_list)):
                 _p = project_handler.Project_handler(_invite_list[i]["project_id"])
                 main_frame.add(f"Type {i+1} to manage project {_p.name}.")
@@ -278,20 +321,20 @@ class Faculty(Person):
             if int(num)-1 not in range(len(_invite_list)):
                 continue
             manage_choice = input("Enter 0 to join, enter 1 to reject the offer. Enter anything else to exit: ")
-            if manage_choice == 0:
+            if manage_choice == "0":
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                _project.change_role(self._id, "member")
-                break
-            elif manage_choice == 1:
+                _project.change_role(self._id, "advisor")
+                return
+            elif manage_choice == "1":
                 invite.reject_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                break
+                return
             else:
                 continue
         
 
 class Advisor(Person):
-    def __init___(self, person_id):
+    def __init__(self, person_id):
         super().__init__(person_id)
         self._id = person_id
         self.__project = project_handler.Project_handler(person_id, True)
@@ -329,6 +372,20 @@ class Advisor(Person):
             return
         else:
             main_frame.add("These are your invitations: /n")
+            new_list=[]
+            # filter out unpending invitations
+            for i in _invite_list:
+                print(i)
+                if i["respond"] != "pending":
+                    continue
+                new_list.append(i)
+            _invite_list = new_list
+            if _invite_list == []:
+                main_frame.add("You have no invite yet.")
+                main_frame.display()
+                main_frame.clear()
+                input("Press enter to exit...")
+                return
             for i in range(len(_invite_list)):
                 _p = project_handler.Project_handler(_invite_list[i]["project_id"])
                 main_frame.add(f"Type {i+1} to manage project {_p.name}.")
@@ -346,25 +403,33 @@ class Advisor(Person):
             if int(num)-1 not in range(len(_invite_list)):
                 continue
             manage_choice = input("Enter 0 to join, enter 1 to reject the offer. Enter anything else to exit: ")
-            if manage_choice == 0:
+            if int(manage_choice) == 0:
                 _project = project_handler.Project_handler(_invite_list[int(num)-1]["project_id"])
                 invite.accept_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                _project.change_role(self._id, "member")
-                break
-            elif manage_choice == 1:
+                _project.change_role(self._id, "advisor")
+                return
+            elif int(manage_choice) == 1:
                 invite.reject_invite_advisor(_invite_list[int(num)-1]["invite_id"])
-                break
+                return
             else:
                 continue
 
     def evaluate_the_work(self):
         works = invite.get_work_project(self.__project.id)
+        if works == []:
+            main_frame.add("No work has been submitted yet.")
+            main_frame.display()
+            main_frame.clear()
+            input("Press enter to proceed...")
+            return
         main_frame.add("Theses are the works submitted")
         for i in range(len(works)):
             main_frame.add(f'{i} : {works[i]["type"]}: {project_handler.Project_handler(works[i]["project_id"]).name} message:{works[i]["message"]}')
         main_frame.display()
         main_frame.clear()
-        choice = input("Enter the choice you want to evaluate: ")
+        choice = input("Enter the choice you want to evaluate, type 'exit' to exit: ")
+        if choice == "exit":
+            return
         while choice not in list(map(str, range(len(works)))):
             choice = input("Enter the choice you want to evaluate: ")
         eval_choice = ["pass", "fail"]

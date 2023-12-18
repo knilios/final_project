@@ -26,7 +26,7 @@ class Project:
             raise ValueError("Please come up with a proper name!")
 
         self.__name = name
-        self.__lead = person_handler.Lead(lead_id)
+        self.__lead = lead_id
         self.__member1 = member1
         self.__member2 = member2
         self.__status = status
@@ -41,7 +41,7 @@ class Project:
                         'member2':self.__member2, 
                         'status':self.__status, 
                         'advisor':self.__advisor,
-                        "id":self.__id
+                        "id":self.__id,
                         }])
             project.overide_new_table(project_table)
         
@@ -61,14 +61,16 @@ class Project:
     def status(self):
         return self.__status
     
+    @property
+    def id(self):
+        return self.__id
+    
     @name.setter
-    def name(self, new_name, person):
+    def name(self, new_name):
         if not isinstance(new_name, str):
             raise TypeError("new name must be a string")
         if new_name.replace(" ", "") == "":
             raise ValueError("Please come up with a proper name!")
-        if not isinstance(person, (person_handler.Lead, person_handler.Member, person_handler.Advisor)):
-            raise TypeError("person must only be a person involved in the project.")
         self.__name = new_name
         self.__update()
         
@@ -87,6 +89,7 @@ class Project:
     def invite_member(self):
         if 'none' not in (self.__member1, self.__member2):
             print("Cannot add more members.")
+            input("Press enter to proceed...")
             return
         _id = get_id.ui("student")
         invite.send_invite_member(self.__id, _id)
@@ -99,9 +102,8 @@ class Project:
         """
         new_advisor must be an advisor class
         """
-        new_advisor = person_handler.Advisor(new_advisor_id)
-        self.__advisor = new_advisor.get_id()
-        self.change_role(new_advisor.get_id(), "advisor")
+        self.__advisor = new_advisor_id
+        self.change_role(new_advisor_id, "advisor")
         self.__update()
         return
     
@@ -131,20 +133,22 @@ class Project:
         l = l_table.filter(lambda x: x["ID"] == person_id).select(['ID','username','password','role'])
         p = p_table.filter(lambda x: x["ID"] == person_id).select(['ID','first','last','type'])
         l[0]['role'] = new_role
-        p[0]['role'] = new_role
+        p[0]['type'] = new_role
         l_table.change_one_roll(l_table.filter(lambda x: x["ID"] == person_id).select(['ID','username','password','role'])[0], l[0])
         p_table.change_one_roll(p_table.filter(lambda x: x["ID"] == person_id).select(['ID','first','last','type'])[0], p[0])
+        logins.overide_new_table(l_table)
+        persons.overide_new_table(p_table)
         
     def __update(self):
-        old = project_table.filter(lambda x: x["id"] == self.__id).select(["name","lead","member1","member2","status",'advisor',"id"])
-        project_table.change_one_roll(old, [{'name':self.__name, 
+        old = project_table.filter(lambda x: x["id"] == self.__id).select(["name","lead","member1","member2","status",'advisor',"id"])[0]
+        project_table.change_one_roll(old, {'name':self.__name, 
                                             'lead':self.__lead, 
                                             'member1':self.__member1,
                                             'member2':self.__member2, 
                                             'status':self.__status, 
                                             'advisor':self.__advisor,
                                             "id":self.__id
-                                            }])
+                                            })
         project.overide_new_table(project_table)
 
 
@@ -169,11 +173,7 @@ class Project_handler(Project):
             info = info[int(num)]
         else:
             info = info[0]
-        super().__init__(info["name"], info["lead"], info['member1'], info['member1'], info['status'], info['adivisor'], project_id, True)
-
-    @property
-    def id(self):
-        return self.__id
+        super().__init__(info["name"], info["lead"], info['member1'], info['member2'], info['advisor'], info['status'], project_id, True)
 
 def list_to_string(s):
     str1 = ""

@@ -65,9 +65,10 @@ class Get_person_id:
         while True:
             frame.add("Enter the name of the person you are finding. Type 'exit' to exit the session.")
             frame.display()
+            frame.clear()
             name = input("Enter here: ")
             if name == 'exit':
-                break
+                return ""
             frame.clear()
             _list = self.get_by_name(name, option, option2)
             if _list == []:
@@ -78,6 +79,8 @@ class Get_person_id:
             frame.add("Here are the list of people you are looking for: /n")
             for i in range(len(_list)):
                 frame.add(f"Enter {i+1} for {_list[i][0]}")
+            frame.display()
+            frame.clear()
             _index = int(input("Enter the number: "))
             if _index-1 not in range(len(_list)):
                 print("Invalid input!")

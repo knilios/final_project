@@ -5,6 +5,7 @@ import sys
 import csv
 import person_handler
 import frame
+import database_handler
 
 # define a funcion called initializing
 
@@ -66,12 +67,11 @@ def login():
     for i in persons:
         if i['username'] == username:
             if i['password'] == password:
-                print(i)
                 return i['ID'], i['role']
     return None
 
 def login_clone():
-    login_table = database_main.search('login')
+    login_table = database_handler.DB('login').get_table()
     persons = login_table.select(['ID', 'username', 'password', 'role'])
     for i in persons:
         if i['username'] == username:
@@ -115,7 +115,9 @@ while True:
 
     if val[1] == 'admin':
       # see and do admin related activities
-      print("ah")
+      print("Sorry, not available at the moment...")
+      input("Press enter to exit...")
+      sys.exit()
 
     elif val[1] == 'student':
         student = person_handler.Student(val[0])
