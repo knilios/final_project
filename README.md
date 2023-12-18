@@ -38,15 +38,25 @@ python project_manage.py
 
 # Action that can be performed
 
-<table>
-    <tr>
-      <td>Role</td><td>Action</td><td>Method</td><td>Class</td><td>Completion percentage</td>
-    </tr>
-    <td>
-      <td>Student</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Student</td><td>100%</td>
-    </tr>
-    
-</table>
+Yes, the method are named accordingly to it's functionality.
+
+| Role | Action | Method | Class | Completion percentage |
+|------|--------|--------|-------|-----------------------|
+| Student | manage incoming invitation | manage_incoming_invitation | Student | 100% |
+| Student | create a project | create_a_project | Student | 100% |
+| Lead | manage incoming invitation | manage_incoming_invitation | Lead | 100% |
+| Lead | see project status | see_project_status | Lead | 100% |
+| Lead | manage project information | manage_project_information | Lead | 100% |
+| Lead | send a member invitation | send_a_member_invitation | Lead | 100% |
+| Lead | submit work | submit_work | Lead | 100% |
+| Member | see project status | see_project_status | Member | 100% |
+| Member | modify project information | modify_project_information | Member | 100% |
+| Member | see invitation respondent | see_invitation_respondant | Member | 100% |
+| Faculty | manage invitation | manage_invitation | Faculty | 100% |
+| Advisor | view and edit project information | view_and_edit_project_information | Advisor | 90% |
+| Advisor | manage invitation | manage_invitation | Advisor | 70% |
+| Advisor | evaluate the work | evaluate_the_work | Advisor | 90% |
+
 
 # Missing features and bugs
 
