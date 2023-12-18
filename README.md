@@ -70,9 +70,14 @@
 
 # Usage
 
-Run the following command:
+1. Run the following command:
 ```bash
 git clone https://github.com/knilios/final_project.git
+```
+2. Delete all .csv files except login.csv and persons.csv
+3. In persons.csv and login.csv, change all word 'lead' and 'member' to 'student' and change all word 'advisor' into 'faculty'.
+4. Run the following command:
+```bash
 python project_manage.py
 ```
 
@@ -103,3 +108,5 @@ Yes, the method are named accordingly to it's functionality.
 1. The Admin's code hasn't been completed at all.
 2. An advisor might not be able to join multiple projects.
 3. The feature evaluating project where 3 outsider evaluate the project to determine the fate of the project at the end is not implemented.
+4. The login.csv is not generating automatically.
+5. Currently the system has no code for reseting itself, so to reset the system, manual file deletion and modification must be perform. 
