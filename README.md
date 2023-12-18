@@ -45,46 +45,7 @@ python project_manage.py
     <td>
       <td>Student</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Student</td><td>100%</td>
     </tr>
-    <td>
-    <td>Student</td><td>create_a_project</td><td>create_a_project</td><td>Student</td><td>100%<td>
-    </tr>
-    <td>
-    <td>Lead</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Lead</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Lead</td><td>see_project_status</td><td>see_project_status</td><td>Lead</td><td>100%<td>
-    </tr>
-    <td>
-    <td>Lead</td><td>manage_project_information</td><td>manage_project_information</td><td>Lead</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Lead</td><td>send_a_member_invitation</td><td>send_a_member_invitation</td><td>Lead</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Lead</td><td>submit_work</td><td>submit_work</td><td>Lead</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Member</td><td>see_project_status</td><td>see_project_status</td><td>Member</td><td>100%<td>
-    </tr>
-    <td>
-    <td>Member</td><td>modify_project_information</td><td>modify_project_information</td><td>Member</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Member</td><td>see_invitation_respondant</td><td>see_invitation_respondant</td><td>Member</td><td>100%</td>
-    </tr>
-    <td>
-    <td>Faculty</td><td>manage_invitation</td><td>manage_invitation</td><td>Faculty</td><td>100%<td>
-    </tr>
-    <td>
-    <td>Advisor</td><td>view_and_edit_project_information</td><td>view_and_edit_project_information</td><td>Advisor</td><td>90%</td>
-    </tr>
-    <td>
-    <td>Advisor</td><td>manage_invitation</td><td>manage_invitation</td><td>Advisor</td><td>70%<td>
-    </tr>
-    <td>
-    <td>Advisor</td><td>evaluate_the_work</td><td>evaluate_the_work</td><td>Advisor</td><td>90%<td>
-    </tr>
-    </tr>
+    
 </table>
 
 # Missing features and bugs
