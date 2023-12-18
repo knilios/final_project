@@ -4,8 +4,8 @@
   - project_manage.py
   - persons.csv
 
-# Guide
-* List of files in the final project repo
+# List of files in the final project repo
+
 1. project_handler.py
     - Is written in procedural code. The main purpose of it is to be link between each modules and class to work together.
 2. database.py
@@ -29,64 +29,65 @@
 7. project_handler.py
     - Class Project - perform every action related to a project eg. change name or add advisor
 
-* Usage
+# Usage
 
 Run the following command:
 ```bash
 python project_manage.py
 ```
 
-* A table detailing each role and its actions, specifying the relevant methods and classes, and indicating the completion percentage of your code for a particular action in a given role. See an example table in the attached file; your table will have much more rows than this.
+# Action that can be performed
+
 <table>
     <tr>
-        <td>Role</td><td>Action</td><td>Method</td><td>Class</td><td>Completion percentage</td>
-        </tr>
-        <td>
-        <td>Student</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Student</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Student</td><td>create_a_project</td><td>create_a_project</td><td>Student</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Lead</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Lead</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Lead</td><td>see_project_status</td><td>see_project_status</td><td>Lead</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Lead</td><td>manage_project_information</td><td>manage_project_information</td><td>Lead</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Lead</td><td>send_a_member_invitation</td><td>send_a_member_invitation</td><td>Lead</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Lead</td><td>submit_work</td><td>submit_work</td><td>Lead</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Member</td><td>see_project_status</td><td>see_project_status</td><td>Member</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Member</td><td>modify_project_information</td><td>modify_project_information</td><td>Member</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Member</td><td>see_invitation_respondant</td><td>see_invitation_respondant</td><td>Member</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Faculty</td><td>manage_invitation</td><td>manage_invitation</td><td>Faculty</td><td>100%</td>
-        </tr>
-        <td>
-        <td>Advisor</td><td>view_and_edit_project_information</td><td>view_and_edit_project_information</td><td>Advisor</td><td>90%</td>
-        </tr>
-        <td>
-        <td>Advisor</td><td>manage_invitation</td><td>manage_invitation</td><td>Advisor</td><td>70%</td>
-        </tr>
-        <td>
-        <td>Advisor</td><td>evaluate_the_work</td><td>evaluate_the_work</td><td>Advisor</td><td>90%</td>
-        </tr>
+      <td>Role</td><td>Action</td><td>Method</td><td>Class</td><td>Completion percentage</td>
+    </tr>
+    <td>
+      <td>Student</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Student</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Student</td><td>create_a_project</td><td>create_a_project</td><td>Student</td><td>100%<td>
+    </tr>
+    <td>
+    <td>Lead</td><td>manage incoming invitation</td><td>manage_incoming_invitation</td><td>Lead</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Lead</td><td>see_project_status</td><td>see_project_status</td><td>Lead</td><td>100%<td>
+    </tr>
+    <td>
+    <td>Lead</td><td>manage_project_information</td><td>manage_project_information</td><td>Lead</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Lead</td><td>send_a_member_invitation</td><td>send_a_member_invitation</td><td>Lead</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Lead</td><td>submit_work</td><td>submit_work</td><td>Lead</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Member</td><td>see_project_status</td><td>see_project_status</td><td>Member</td><td>100%<td>
+    </tr>
+    <td>
+    <td>Member</td><td>modify_project_information</td><td>modify_project_information</td><td>Member</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Member</td><td>see_invitation_respondant</td><td>see_invitation_respondant</td><td>Member</td><td>100%</td>
+    </tr>
+    <td>
+    <td>Faculty</td><td>manage_invitation</td><td>manage_invitation</td><td>Faculty</td><td>100%<td>
+    </tr>
+    <td>
+    <td>Advisor</td><td>view_and_edit_project_information</td><td>view_and_edit_project_information</td><td>Advisor</td><td>90%</td>
+    </tr>
+    <td>
+    <td>Advisor</td><td>manage_invitation</td><td>manage_invitation</td><td>Advisor</td><td>70%<td>
+    </tr>
+    <td>
+    <td>Advisor</td><td>evaluate_the_work</td><td>evaluate_the_work</td><td>Advisor</td><td>90%<td>
+    </tr>
     </tr>
 </table>
 
-* A list of missing features and outstanding bugs, detailing actions for a particular role you have not implemented together with known bugs
+# Missing features and bugs
 
 1. The Admin's code hasn't been completed at all.
 2. An advisor might not be able to join multiple projects.
